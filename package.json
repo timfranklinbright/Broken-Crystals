@@ -37,7 +37,7 @@
     "@nestjs/mercurius": "^11.0.3",
     "@nestjs/platform-fastify": "^9.3.9",
     "@nestjs/swagger": "^6.2.1",
-    "@sectester/bus": "^0.16.5",
+    "@sectester/bus": "^0.20.0",
     "@sectester/core": "^0.16.5",
     "@sectester/repeater": "^0.16.5",
     "@sectester/reporter": "^0.16.5",
