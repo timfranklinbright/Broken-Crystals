@@ -1,0 +1,37 @@
+name: gh-run
+
+#normally you use the on push/pullrequest option per branch, but 'on dispatch' is an easy way to kick off manually.
+on: workflow_dispatch
+
+#on:
+#  push:
+#    branches:
+#      - crawler
+#      - har-file
+#      - swagger
+#      - brokencrystals
+#  pull_request:
+#    branches: [main]
+#  schedule:
+#    - cron: "0 0 * * THU"
+
+jobs:
+  wait_for:
+    name: Wait for any issues, gh-int + code_scanning_alerts on
+    runs-on: ubuntu-latest
+    container: node:16
+    steps:
+      - name: Scan Start
+        id: start
+        uses: NeuraLegion/run-scan@release
+        with:
+          api_token: ${{ secrets.BRIGHT_TOKEN}}
+          hostname: ${{ secrets.BRIGHT_CLUSTER}}
+#          name: gh-BC - ${{ github.sha }}
+          name: ${{github.event.repository.name}} - ${{github.ref_name}}
+#          name: CICD-gh-run - ${{ github.sha }}
+#          restart_scan: $SCAN_ID
+          discovery_types: |
+            [ "crawler" ]
+          crawler_urls: |
+            [ "https://brokencrystals.com" ]
